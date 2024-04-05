@@ -13,6 +13,24 @@ function likePost() {
     localStorage.setItem('likes', JSON.stringify(likes));
 }
 
+function dislikePost() {
+    let likes = parseInt(likeCount.textContent);
+    likes--;
+    likeCount.textContent = likes;
+}
+
+const postImage = document.querySelector('.post-image');
+let isLiked = false;
+
+function toggleLikeDislike() {
+    if (isLiked) {
+        dislikePost();
+    } else {
+        likePost();
+    }
+    isLiked = !isLiked;
+}
+
  function addComment() {
 const commentText = commentInput.value.trim();
 if (commentText !== '') {
@@ -24,10 +42,12 @@ newComment.innerHTML = `
             `;
 commentsContainer.appendChild(newComment);
 commentInput.value = '';
-localStorage.setItem('commentInput', JSON.stringify(commentInput));
+localStorage.setItem('comment', JSON.stringify(comments));
          }
     }
 
  likeBtn.addEventListener('click', likePost);
  addCommentBtn.addEventListener('click', addComment);
+ postImage.addEventListener('dblclick', toggleLikeDislike);
+ likeBtn.addEventListener('dblclick', dislikePost);
 });
